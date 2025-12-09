@@ -1,0 +1,146 @@
+<div class="form-wrapper">
+  <div class="form-container">
+
+    <!-- Header -->
+    <div class="form-header">
+      <button class="btn-back" (click)="cancel()">
+        ← Volver
+      </button>
+      <h1>{{ isEditMode ? 'Editar Producto' : 'Nuevo Producto' }}</h1>
+    </div>
+
+    <!-- Loading -->
+    <div *ngIf="isLoading && isEditMode" class="loading">
+      <div class="spinner"></div>
+      <p>Cargando producto...</p>
+    </div>
+
+    <!-- Formulario -->
+    <form *ngIf="!isLoading || !isEditMode" [formGroup]="productForm" (ngSubmit)="onSubmit()" class="product-form">
+
+      <!-- Nombre -->
+      <div class="form-group">
+        <label for="name">Nombre del Producto *</label>
+        <input id="name" type="text" formControlName="name" placeholder="Ej: Camiseta Básica, Pantalón Denim..."
+          [class.error]="isFieldInvalid('name')" />
+        <span class="error-message" *ngIf="hasError('name', 'required')">
+          El nombre es obligatorio
+        </span>
+        <span class="error-message" *ngIf="hasError('name', 'minlength')">
+          Mínimo 3 caracteres
+        </span>
+      </div>
+
+      <!-- Descripción -->
+      <div class="form-group">
+        <label for="description">Descripción</label>
+        <textarea id="description" formControlName="description"
+          placeholder="Describe el producto, materiales, características..." rows="4"></textarea>
+      </div>
+
+      <!-- Grid: Precio, Stock, Categoría -->
+      <div class="form-row-3">
+
+        <!-- Precio -->
+        <div class="form-group">
+          <label for="price">Precio *</label>
+          <input id="price" type="number" formControlName="price" placeholder="0.00" step="0.01" min="0"
+            [class.error]="isFieldInvalid('price')" />
+          <span class="error-message" *ngIf="hasError('price', 'required')">
+            Obligatorio
+          </span>
+          <span class="error-message" *ngIf="hasError('price', 'min')">
+            Debe ser mayor a 0
+          </span>
+        </div>
+
+        <!-- Stock -->
+        <div class="form-group">
+          <label for="stock">Stock *</label>
+          <input id="stock" type="number" formControlName="stock" placeholder="0" min="0"
+            [class.error]="isFieldInvalid('stock')" />
+          <span class="error-message" *ngIf="hasError('stock', 'required')">
+            Obligatorio
+          </span>
+        </div>
+
+        <!-- Categoría -->
+        <div class="form-group">
+          <label for="categoryId">Categoría *</label>
+          <select id="categoryId" formControlName="categoryId" [class.error]="isFieldInvalid('categoryId')"
+            [disabled]="loadingCategories">
+            <option value="">Seleccionar...</option>
+            <option *ngFor="let cat of categories" [value]="cat.categoryId">
+              {{ cat.name }}
+            </option>
+          </select>
+          <span class="error-message" *ngIf="hasError('categoryId', 'required')">
+            Obligatorio
+          </span>
+          <small class="help-text" *ngIf="loadingCategories">
+            Cargando categorías...
+          </small>
+        </div>
+
+      </div>
+
+      <!-- Grid: Talla y Color -->
+      <div class="form-row-2">
+
+        <!-- Talla -->
+        <div class="form-group">
+          <label for="size">Talla / Tamaño</label>
+          <input id="size" type="text" formControlName="size" placeholder="Ej: S, M, L, XL, 32, 34..." />
+          <small class="help-text">Opcional</small>
+        </div>
+
+        <!-- Color -->
+        <div class="form-group">
+          <label for="color">Color</label>
+          <input id="color" type="text" formControlName="color" placeholder="Ej: Negro, Azul, Rojo..." />
+          <small class="help-text">Opcional</small>
+        </div>
+
+      </div>
+
+      <!-- URL de Imagen -->
+      <div class="form-group">
+        <label for="imageUrl">URL de Imagen</label>
+        <input id="imageUrl" type="text" formControlName="imageUrl"
+          placeholder="https://ejemplo.com/imagen-producto.jpg" />
+        <small class="help-text">URL de la imagen del producto (opcional)</small>
+
+        <!-- Preview de imagen -->
+        <div *ngIf="productForm.get('imageUrl')?.value" class="image-preview">
+          <p class="preview-label">Vista previa:</p>
+          <img [src]="productForm.get('imageUrl')?.value" alt="Preview"
+            (error)="$event.target.src='https://via.placeholder.com/200x200?text=Error'" />
+        </div>
+      </div>
+
+      <!-- Botones -->
+      <div class="form-actions">
+        <button type="button" class="btn-cancel" (click)="cancel()" [disabled]="isLoading">
+          Cancelar
+        </button>
+        <button type="submit" class="btn-submit" [disabled]="isLoading || loadingCategories">
+          <span *ngIf="!isLoading">
+            {{ isEditMode ? 'Actualizar' : 'Crear' }} Producto
+          </span>
+          <span *ngIf="isLoading" class="loading-inline">
+            <span class="spinner-small"></span>
+            {{ isEditMode ? 'Actualizando...' : 'Creando...' }}
+          </span>
+        </button>
+      </div>
+
+      <!-- Mensaje -->
+      <div *ngIf="mensaje" class="mensaje" [class.success]="mensaje.includes('Exito')"
+        [class.error]="mensaje.includes('Error')">
+        {{ mensaje }}
+      </div>
+
+    </form>
+
+  </div>
+</div>

@@ -1,0 +1,117 @@
+// Variables (adaptadas al estilo del proyecto)
+$color-black: #000;
+$color-white: #fff;
+$color-gray-light: #f4f4f4;
+$color-gray-dark: #333;
+$font-primary: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+
+.contact-container {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 20px;
+    font-family: $font-primary;
+}
+
+.info-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 40px;
+    margin-bottom: 60px;
+}
+
+.info-card {
+    background-color: #D9D0C7;
+    color: $color-black; // Cambio a negro para mejor contraste con el fondo beige
+    padding: 30px;
+    text-align: center;
+    border-radius: 0; // Square corners for H&M minimalist look
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+    h2 {
+        text-transform: uppercase;
+        font-weight: 700;
+        margin-bottom: 15px;
+        letter-spacing: 1px;
+    }
+
+    p {
+        color: #333; // Texto más oscuro para el fondo beige
+        margin-bottom: 20px;
+    }
+
+    .map-image {
+        width: 100%;
+        max-height: 250px;
+        object-fit: cover;
+        border: 1px solid #444;
+    }
+}
+
+.social-links {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 20px;
+
+    .social-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        color: $color-white;
+        text-decoration: none;
+        font-size: 1.2rem;
+        padding: 10px;
+        border: 1px solid #444;
+        transition: all 0.3s ease;
+
+        &:hover {
+            background-color: $color-white;
+            color: $color-black;
+            border-color: $color-white;
+        }
+
+        i {
+            font-size: 1.4rem;
+        }
+    }
+}
+
+// Parallax Section
+.parallax {
+    background-image: url('/assets/parallax-bg.jpg'); // Ruta absoluta desde la raíz pública
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    background-color: #333; // Fallback
+
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.5); // Overlay oscuro
+    }
+
+    .parallax-content {
+        position: relative;
+        z-index: 1;
+        color: $color-white;
+        text-align: center;
+
+        h2 {
+            font-size: 3rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+    }
+}

@@ -1,0 +1,84 @@
+<div class="container">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="header-content">
+      <h1>Categorías</h1>
+      <p class="subtitle">Gestiona las categorías de productos</p>
+    </div>
+    <button class="btn-primary" (click)="goToCreate()">
+      <span class="btn-icon">+</span>
+      Nueva Categoría
+    </button>
+  </div>
+
+  <!-- Loading -->
+  <div *ngIf="isLoading" class="loading">
+    <div class="spinner"></div>
+    <p>Cargando categorías...</p>
+  </div>
+
+  <!-- Mensaje -->
+  <div *ngIf="mensaje" class="mensaje" [class.success]="mensaje.includes('Exito')"
+    [class.error]="mensaje.includes('Error')">
+    {{ mensaje }}
+  </div>
+
+  <!-- Lista de categorías -->
+  <div *ngIf="!isLoading && categories.length > 0" class="categories-grid">
+
+    <div class="category-card" *ngFor="let category of categories">
+
+      <!-- Imagen -->
+      <div class="category-image">
+        <img *ngIf="category.imageUrl" [src]="category.imageUrl" [alt]="category.name"
+          (error)="$event.target.src='https://via.placeholder.com/300x200?text=Sin+Imagen'" />
+        <div *ngIf="!category.imageUrl" class="no-image">
+          <i class="bi bi-box-seam"></i>
+          <p>Sin imagen</p>
+        </div>
+
+        <!-- Badge de estado -->
+        <!-- Note: If getStatusBadge exists in TS, use it. If not, simpler check -->
+        <!-- Assuming getStatusBadge was in TS or we remove it if TS was cleaned too much -->
+        <!-- Re-adding badge if supported -->
+      </div>
+
+      <!-- Contenido -->
+      <div class="category-content">
+        <div class="category-header">
+          <h3>{{ category.name }}</h3>
+          <div class="category-meta">
+            <span class="meta-item"><i class="bi bi-gender-ambiguous"></i> {{ category.gender }}</span>
+            <span class="meta-item"><i class="bi bi-sun"></i> {{ category.season }}</span>
+          </div>
+        </div>
+
+        <p class="category-description">
+          {{ category.description || 'Sin descripción disponible' }}
+        </p>
+
+        <!-- Acciones: Solo Eliminar -->
+        <div class="category-actions">
+          <button class="btn-delete" (click)="deleteCategory(category.categoryId, category.name)">
+            <i class="bi bi-trash"></i> Eliminar
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- Sin categorías -->
+  <div *ngIf="!isLoading && categories.length === 0" class="empty-state">
+    <div class="empty-icon"><i class="bi bi-box-seam"></i></div>
+    <h2>No hay categorías registradas</h2>
+    <p>Comienza creando tu primera categoría de productos</p>
+    <button class="btn-primary-large" (click)="goToCreate()">
+      <span class="btn-icon">+</span>
+      Crear Primera Categoría
+    </button>
+  </div>
+
+</div>

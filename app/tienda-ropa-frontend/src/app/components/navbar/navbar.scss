@@ -1,0 +1,54 @@
+/* Paleta de colores */
+$color1: #BF9180;
+$color2: #8C6B4F;
+$color3: #BFA07A;
+$color4: #D0D9D9;
+$color5: #202426;
+$color6: #A67563;
+$color7: #8C5B3F;
+$color8: #BFAE99;
+$color9: #D9D0C7;
+$color10: #8C454B;
+
+.custom-navbar {
+  background-color: $color9; /* Fondo principal del navbar */
+
+  .navbar-brand {
+    font-weight: bold;
+    letter-spacing: 1px;
+    color: $color5 !important;
+
+    img.logo {
+      height: 80px;   // tamaño del logo
+      width: auto;
+    }
+  }
+
+  .nav-link {
+    font-size: 1.1rem;
+    color: $color5 !important;
+    margin-right: 0.8rem;
+
+    &:hover {
+      color: $color2 !important;
+    }
+  }
+
+  .btn-light {
+    background-color: $color3;
+    color: $color5;
+
+    &:hover {
+      background-color: $color2;
+      color: #fff;
+    }
+  }
+
+  .navbar-toggler {
+    border-color: $color5;
+  }
+
+  .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='" + $color5 + "' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+  }
+}

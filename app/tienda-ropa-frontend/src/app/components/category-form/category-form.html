@@ -1,0 +1,142 @@
+<div class="form-wrapper">
+  <div class="form-container">
+
+    <!-- Header -->
+    <div class="form-header">
+      <button class="btn-back" (click)="cancel()">
+        ← Volver
+      </button>
+      <h1>{{ isEditMode ? 'Editar Categoría' : 'Nueva Categoría' }}</h1>
+    </div>
+
+    <!-- Loading -->
+    <div *ngIf="isLoading && isEditMode" class="loading">
+      <div class="spinner"></div>
+      <p>Cargando categoría...</p>
+    </div>
+
+    <!-- Formulario -->
+    <form
+      *ngIf="!isLoading || !isEditMode"
+      [formGroup]="categoryForm"
+      (ngSubmit)="onSubmit()"
+      class="category-form"
+    >
+
+      <!-- Nombre -->
+      <div class="form-group">
+        <label for="name">Nombre de la Categoría *</label>
+        <input
+          id="name"
+          type="text"
+          formControlName="name"
+          placeholder="Ej: Camisetas, Pantalones, Vestidos..."
+          [class.error]="isFieldInvalid('name')"
+        />
+        <span class="error-message" *ngIf="hasError('name', 'required')">
+          El nombre es obligatorio
+        </span>
+        <span class="error-message" *ngIf="hasError('name', 'minlength')">
+          Mínimo 3 caracteres
+        </span>
+      </div>
+
+      <!-- Descripción -->
+      <div class="form-group">
+        <label for="description">Descripción</label>
+        <textarea
+          id="description"
+          formControlName="description"
+          placeholder="Describe esta categoría de productos..."
+          rows="4"
+        ></textarea>
+      </div>
+
+      <!-- URL de Imagen -->
+      <div class="form-group">
+        <label for="imageUrl">URL de Imagen</label>
+        <input
+          id="imageUrl"
+          type="text"
+          formControlName="imageUrl"
+          placeholder="https://ejemplo.com/imagen.jpg"
+        />
+        <small class="help-text">Opcional: URL de una imagen para esta categoría</small>
+      </div>
+
+      <!-- Grid para Status, Season y Gender -->
+      <div class="form-row">
+
+        <!-- Status -->
+        <div class="form-group">
+          <label for="status">Estado *</label>
+          <select id="status" formControlName="status">
+            <option value="active">Activa</option>
+            <option value="inactive">Inactiva</option>
+          </select>
+        </div>
+
+        <!-- Season -->
+        <div class="form-group">
+          <label for="season">Temporada *</label>
+          <select id="season" formControlName="season">
+            <option value="All Seasons">Todas las temporadas</option>
+            <option value="Spring">Primavera</option>
+            <option value="Summer">Verano</option>
+            <option value="Fall">Otoño</option>
+            <option value="Winter">Invierno</option>
+          </select>
+        </div>
+
+        <!-- Gender -->
+        <div class="form-group">
+          <label for="gender">Género *</label>
+          <select id="gender" formControlName="gender">
+            <option value="Unisex">Unisex</option>
+            <option value="Men">Hombre</option>
+            <option value="Women">Mujer</option>
+            <option value="Kids">Niños</option>
+          </select>
+        </div>
+
+      </div>
+
+      <!-- Botones -->
+      <div class="form-actions">
+        <button
+          type="button"
+          class="btn-cancel"
+          (click)="cancel()"
+          [disabled]="isLoading"
+        >
+          Cancelar
+        </button>
+        <button
+          type="submit"
+          class="btn-submit"
+          [disabled]="isLoading"
+        >
+          <span *ngIf="!isLoading">
+            {{ isEditMode ? 'Actualizar' : 'Crear' }} Categoría
+          </span>
+          <span *ngIf="isLoading" class="loading-inline">
+            <span class="spinner-small"></span>
+            {{ isEditMode ? 'Actualizando...' : 'Creando...' }}
+          </span>
+        </button>
+      </div>
+
+      <!-- Mensaje -->
+      <div
+        *ngIf="mensaje"
+        class="mensaje"
+        [class.success]="mensaje.includes('✅')"
+        [class.error]="mensaje.includes('❌')"
+      >
+        {{ mensaje }}
+      </div>
+
+    </form>
+
+  </div>
+</div>

@@ -1,0 +1,81 @@
+/* Paleta de colores */
+$color1: #BF9180;
+$color2: #8C6B4F;
+$color3: #BFA07A;
+$color4: #D0D9D9;
+$color5: #202426;
+$color6: #A67563;
+$color7: #8C5B3F;
+$color8: #BFAE99;
+$color9: #D9D0C7;
+$color10: #8C454B;
+
+/* Carrusel */
+#carouselRopa {
+  .carousel-caption {
+    background-color: rgba(32, 36, 38, 0.6); // fondo semitransparente
+    border-radius: 8px;
+    padding: 1rem;
+
+    h5 {
+      color: $color4; // tono claro
+      font-weight: bold;
+    }
+
+    p {
+      color: $color9; // tono suave
+    }
+  }
+
+  .carousel-control-prev-icon,
+  .carousel-control-next-icon {
+    filter: invert(1); // íconos blancos
+  }
+}
+
+/* Sección principal */
+.content {
+  text-align: center;
+  padding: 3rem 1rem;
+
+  h2 {
+    color: $color5; // contraste oscuro
+    font-weight: bold;
+  }
+
+  .slogan {
+    font-size: 2rem;
+    font-weight: bold;
+    color: $color10; // color de énfasis oscuro
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 0.5rem;
+    // Eliminado text-shadow para texto oscuro
+  }
+
+  p.lead {
+    color: $color5; // texto oscuro y legible
+    font-size: 1.2rem;
+  }
+}
+
+/* Parallax */
+.parallax {
+  background-image: url("/assets/parallax-bg.jpg"); // usa tu imagen
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 400px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  h2 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: $color4; // tono claro
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.7);
+  }
+}

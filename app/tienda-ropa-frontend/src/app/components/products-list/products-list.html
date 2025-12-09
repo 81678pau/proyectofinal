@@ -1,0 +1,102 @@
+<div class="container">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="header-content">
+      <h1>Productos</h1>
+      <p class="subtitle">Gestiona tu catálogo de productos</p>
+    </div>
+    <button class="btn-primary" (click)="goToCreate()">
+      <span class="btn-icon">+</span>
+      Nuevo Producto
+    </button>
+  </div>
+
+  <!-- Loading -->
+  <div *ngIf="isLoading" class="loading">
+    <div class="spinner"></div>
+    <p>Cargando productos...</p>
+  </div>
+
+  <!-- Mensaje -->
+  <div *ngIf="mensaje" class="mensaje" [class.success]="mensaje.includes('Exito')"
+    [class.error]="mensaje.includes('Error')">
+    {{ mensaje }}
+  </div>
+
+  <!-- Lista de productos -->
+  <div *ngIf="!isLoading && products.length > 0" class="products-grid">
+
+    <div class="product-card" *ngFor="let product of products">
+
+      <!-- Imagen -->
+      <div class="product-image">
+        <img *ngIf="product.imageUrl" [src]="product.imageUrl" [alt]="product.name"
+          (error)="$event.target.src='https://via.placeholder.com/300x300?text=Sin+Imagen'" />
+        <div *ngIf="!product.imageUrl" class="no-image">
+          <i class="bi bi-image"></i>
+        </div>
+
+        <!-- Badge de stock -->
+        <span class="badge-stock" [ngClass]="getStockClass(product.stock)">
+          {{ getStockText(product.stock) }}
+        </span>
+      </div>
+
+      <!-- Contenido -->
+      <div class="product-content">
+
+        <!-- Categoría -->
+        <span class="product-category">
+          {{ product.categoryName || 'Sin categoría' }}
+        </span>
+
+        <!-- Nombre -->
+        <h3 class="product-name">{{ product.name }}</h3>
+
+        <!-- Precio -->
+        <p class="product-price">{{ formatPrice(product.price) }}</p>
+
+        <!-- Detalles -->
+        <div class="product-details">
+          <span *ngIf="product.size" class="detail-item">
+            <i class="bi bi-rulers"></i> {{ product.size }}
+          </span>
+          <span *ngIf="product.color" class="detail-item">
+            <i class="bi bi-palette"></i> {{ product.color }}
+          </span>
+        </div>
+
+        <!-- Descripción -->
+        <p class="product-description">
+          {{ product.description || 'Sin descripción' }}
+        </p>
+
+        <!-- Acciones -->
+        <div class="product-actions">
+          <button class="btn-cart" (click)="addToCart(product)">
+            <i class="bi bi-cart-plus"></i> Agregar
+          </button>
+          <button class="btn-delete" (click)="deleteProduct(product.productId, product.name)">
+            <i class="bi bi-trash"></i> Eliminar
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- Sin productos -->
+  <div *ngIf="!isLoading && products.length === 0" class="empty-state">
+    <div class="empty-icon"><i class="bi bi-box-seam"></i></div>
+    <h2>No hay productos registrados</h2>
+    <p>Comienza agregando productos a tu tienda</p>
+    <button class="btn-primary-large" (click)="goToCreate()">
+      <span class="btn-icon">+</span>
+      Crear Primer Producto
+    </button>
+  </div>
+
+</div>

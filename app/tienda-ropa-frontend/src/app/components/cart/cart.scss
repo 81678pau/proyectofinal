@@ -1,0 +1,225 @@
+// Variables
+$font-primary: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+$color-black: #000;
+$color-white: #fff;
+$color-gray-light: #f4f4f4;
+$color-gray-border: #e0e0e0;
+$color-gray-dark: #333;
+
+.cart-container {
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 0 20px;
+  font-family: $font-primary;
+  color: $color-black;
+
+  h2 {
+    font-size: 2.5rem;
+    font-weight: 800; // Extra bold like H&M
+    text-transform: uppercase;
+    margin-bottom: 40px;
+    letter-spacing: -1px;
+    text-align: left;
+  }
+
+  .alert {
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    font-weight: 500;
+  }
+  .alert-success { background: #d4edda; color: #155724; border-color: #c3e6cb; }
+  .alert-danger { background: #f8d7da; color: #721c24; border-color: #f5c6cb; }
+
+  .cart-layout {
+    display: grid;
+    grid-template-columns: 2fr 1fr; // Left: Items, Right: Summary
+    gap: 40px;
+
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  // --- Cart Items ---
+  .cart-items {
+    border-top: 1px solid $color-black;
+  }
+
+  .cart-item {
+    display: grid;
+    grid-template-columns: 120px 1fr auto; // Image - Info - Total
+    gap: 20px;
+    padding: 24px 0;
+    border-bottom: 1px solid $color-gray-border;
+    align-items: start;
+
+    .item-image {
+        width: 100%;
+        height: 160px;
+        background-color: $color-gray-light;
+        object-fit: cover;
+    }
+
+    .item-details {
+      h3 {
+        font-size: 1.1rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        margin: 0 0 8px 0;
+      }
+
+      .price {
+        font-size: 1rem;
+        font-weight: 400;
+        margin-bottom: 16px;
+      }
+
+      .item-controls {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        
+        // Quantity Selector
+        .quantity-selector {
+          display: flex;
+          align-items: center;
+          border: 1px solid $color-gray-border;
+          
+          button {
+            background: none;
+            border: none;
+            width: 32px;
+            height: 32px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            &:hover { background-color: $color-gray-light; }
+          }
+
+          span {
+            font-size: 1rem;
+            font-weight: 600;
+            width: 32px;
+            text-align: center;
+          }
+        }
+
+        // Delete Button
+        .btn-remove {
+          background: none;
+          border: none;
+          cursor: pointer;
+          padding: 8px;
+          opacity: 0.6;
+          transition: opacity 0.2s;
+          
+          &:hover { opacity: 1; }
+          
+          svg { width: 20px; height: 20px; }
+        }
+      }
+    }
+
+    .item-total {
+      font-weight: 600;
+      font-size: 1.1rem;
+    }
+  }
+
+  // --- Order Summary (Right Side) ---
+  .cart-summary {
+    background-color: $color-gray-light;
+    padding: 30px;
+    height: fit-content;
+
+    h3 {
+        font-size: 1.2rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        margin-bottom: 20px;
+    }
+
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 15px;
+      font-size: 1rem;
+      
+      &.total {
+        margin-top: 20px;
+        padding-top: 20px;
+        border-top: 1px solid $color-gray-border;
+        font-weight: 700;
+        font-size: 1.2rem;
+      }
+    }
+
+    .btn-checkout {
+      width: 100%;
+      background-color: $color-black;
+      color: $color-white;
+      border: none;
+      padding: 16px;
+      font-size: 1rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      cursor: pointer;
+      margin-top: 24px;
+      transition: background-color 0.2s;
+
+      &:hover {
+        background-color: $color-gray-dark;
+      }
+      
+      &:disabled {
+        background-color: #999;
+        cursor: not-allowed;
+      }
+    }
+    
+    .btn-clear {
+        display: block;
+        width: 100%;
+        text-align: center;
+        margin-top: 16px;
+        padding: 10px;
+        background: none;
+        border: 1px solid $color-black;
+        cursor: pointer;
+        text-transform: uppercase;
+        font-size: 0.9rem;
+        
+        &:hover { background-color: #fff; }
+    }
+  }
+
+  // --- Empty State ---
+  .empty-state {
+    text-align: center;
+    padding: 100px 0;
+
+    p {
+      font-size: 1.5rem;
+      margin-bottom: 30px;
+      font-weight: 300;
+    }
+
+    .btn-shop {
+      background-color: $color-black;
+      color: $color-white;
+      border: none;
+      padding: 16px 40px;
+      font-size: 1rem;
+      text-transform: uppercase;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      
+      &:hover { background-color: $color-gray-dark; }
+    }
+  }
+}
